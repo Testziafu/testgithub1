@@ -1,20 +1,58 @@
-name: Semgrep Check Run
+name: Add PR Annotation
 
 on:
   pull_request:
+    types: [opened, synchronize]
 
 jobs:
-  write_variable_to_file:
+  add_annotation:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Write variable to file
-        env:
-          MY_VARIABLE: "Hello, world!"
-        run: |
-          echo "${{ secrets.GITHUB_TOKEN }}" > my_output_file.txt
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        
+      - name: Install jq
+        run: sudo apt-get install -y jq
 
-      - name: Display contents of the file
+      - name: Create check run with annotation
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          cat my_output_file.txt
-          
+          # Get PR information
+          PR_HEAD_SHA=$(jq -r '.pull_request.head.sha' "$GITHUB_EVENT_PATH")
+
+          # Create a new check run
+          CHECK_RUN_PAYLOAD=$(cat <<-END
+          {
+            "name": "PR Annotation",
+            "head_sha": "$PR_HEAD_SHA",
+            "status": "completed",
+            "conclusion": "neutral",
+            "output": {
+              "title": "Example Annotation",
+              "summary": "This is an example annotation for a pull request.",
+              "annotations": [
+                {
+                  "path": "README.md",
+                  "start_line": 1,
+                  "end_line": 1,
+                  "annotation_level": "warning",
+                  "message": "This is an example annotation message."
+                }
+              ]
+            }
+          }
+          END
+          )
+
+          CHECK_RUN_RESPONSE=$(curl -sSL \
+            -H "Authorization: token $GITHUB_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            -H "Content-Type: application/json" \
+            -X POST \
+            -d "$CHECK_RUN_PAYLOAD" \
+            "https://api.github.com/repos/$GITHUB_REPOSITORY/check-runs")
+
+          echo "Check run created:"
+          echo "$CHECK_RUN_RESPONSE" | jq
