@@ -1,11 +1,20 @@
-name: Echo GITHUB_TOKEN
+name: Semgrep Check Run
 
-on: [pull_request, push]
+on:
+  pull_request:
 
 jobs:
-  echo_token:
+  write_variable_to_file:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Echo GITHUB_TOKEN
-      run: echo '${{ toJSON(github) }}'
+      - name: Write variable to file
+        env:
+          MY_VARIABLE: "Hello, world!"
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" > my_output_file.txt
+
+      - name: Display contents of the file
+        run: |
+          cat my_output_file.txt
+          
