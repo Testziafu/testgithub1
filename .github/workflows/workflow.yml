@@ -51,10 +51,11 @@ jobs:
           echo $CHECK_RUN_PAYLOAD
           echo $GITHUB_REPOSITORY
 
-          CHECK_RUN_RESPONSE=$(curl -sSL \
-            -H "Authorization: Bearer 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" \
+          CHECK_RUN_RESPONSE=$(curl -L \
+            -H "Authorization: Bearer $GITHUB_TOKEN" \
             -H "Accept: application/vnd.github+json" \
             -H "Content-Type: application/json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
             -X POST \
             -d "$CHECK_RUN_PAYLOAD" \
             "https://api.github.com/repos/$GITHUB_REPOSITORY/check-runs")
