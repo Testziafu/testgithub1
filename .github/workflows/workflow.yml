@@ -53,6 +53,7 @@ jobs:
             -X POST \
             -d "$CHECK_RUN_PAYLOAD" \
             "https://api.github.com/repos/$GITHUB_REPOSITORY/check-runs")
-
+            
+          echo "$GITHUB_REPOSITORY"
           echo "Check run created:"
           echo "$CHECK_RUN_RESPONSE" | jq
