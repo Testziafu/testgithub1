@@ -43,6 +43,15 @@ jobs:
                   "end_line": 1,
                   "annotation_level": "warning",
                   "message": "This is an example annotation message."
+                },
+                {
+                  "path": "sql.test",
+                  "start_line": 1,
+                  "end_line": 1,
+                  "annotation_level": "warning",
+                  "message": "There is SQL injection in this code",
+                  "start_column": 1,
+                  "end_column": 20
                 }
               ]
             }
