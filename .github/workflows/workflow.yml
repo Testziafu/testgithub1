@@ -1,0 +1,16 @@
+name: My workflow
+
+on:
+  pull_request:
+
+jobs:
+  my_first_job:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v2
+
+    - name: Echo GITHUB_TOKEN
+      run:
+        echo "GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}"
