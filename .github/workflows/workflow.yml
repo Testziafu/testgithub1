@@ -8,4 +8,4 @@ jobs:
 
     steps:
     - name: Echo GITHUB_TOKEN
-      run: echo $0
+      run: echo "GITHUB_TOKEN':' ${{ secrets.GITHUB_TOKEN }}"
