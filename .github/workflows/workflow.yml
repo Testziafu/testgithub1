@@ -46,6 +46,7 @@ jobs:
               ]
             }
           }
+          echo $CHECK_RUN_PAYLOAD
           END
           )
 
