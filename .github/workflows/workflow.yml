@@ -7,6 +7,7 @@ on:
 jobs:
   add_annotation:
     runs-on: ubuntu-latest
+    permissions: write-all
 
     steps:
       - name: Checkout repository
