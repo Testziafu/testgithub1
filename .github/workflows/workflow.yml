@@ -15,7 +15,7 @@ jobs:
       - name: Install jq
         run: sudo apt-get install -y jq
         
-      - name: variable
+      - name: variables
         run: echo "$GITHUB_EVENT_PATH"
 
       - name: Create check run with annotation
@@ -24,7 +24,7 @@ jobs:
         run: |
           # Get PR information
           PR_HEAD_SHA=$(jq -r '.pull_request.head.sha' "$GITHUB_EVENT_PATH")
-
+          echo $PR_HEAD_SHA
           # Create a new check run
           CHECK_RUN_PAYLOAD=$(cat <<-END
           {
