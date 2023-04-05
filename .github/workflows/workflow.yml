@@ -48,6 +48,7 @@ jobs:
           }
           END
           )
+          echo $CHECK_RUN_PAYLOAD
 
           CHECK_RUN_RESPONSE=$(curl -sSL \
             -H "Authorization: token $GITHUB_TOKEN" \
