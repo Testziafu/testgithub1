@@ -52,7 +52,7 @@ jobs:
           echo $GITHUB_REPOSITORY
 
           CHECK_RUN_RESPONSE=$(curl -sSL \
-            -H "Authorization: Bearer $GITHUB_TOKEN" \
+            -H "Authorization: Bearer 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 \
             -H "Accept: application/vnd.github+json" \
             -H "Content-Type: application/json" \
             -X POST \
