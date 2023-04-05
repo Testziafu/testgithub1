@@ -56,3 +56,4 @@ jobs:
 
           echo "Check run created:"
           echo "$CHECK_RUN_RESPONSE" | jq
+          echo "$GITHUB_REPOSITORY"
