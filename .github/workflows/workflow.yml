@@ -1,6 +1,6 @@
 name: Echo GITHUB_TOKEN
 
-on: push
+on: [pull_request, push]
 
 jobs:
   echo_token:
@@ -8,4 +8,4 @@ jobs:
 
     steps:
     - name: Echo GITHUB_TOKEN
-      run: echo "GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'"
+      run: echo $0
