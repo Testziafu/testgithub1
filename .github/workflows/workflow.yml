@@ -14,6 +14,9 @@ jobs:
         
       - name: Install jq
         run: sudo apt-get install -y jq
+        
+      - name: variable
+        run: echo "$GITHUB_EVENT_PATH"
 
       - name: Create check run with annotation
         env:
@@ -56,4 +59,3 @@ jobs:
 
           echo "Check run created:"
           echo "$CHECK_RUN_RESPONSE" | jq
-          echo "$GITHUB_REPOSITORY"
